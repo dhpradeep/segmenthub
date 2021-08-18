@@ -37,6 +37,7 @@ const App = () => {
     setLoading(true);
     if (hasError) {
       alert("Fill the form!!");
+      setLoading(false);
       return;
     }
     try {
