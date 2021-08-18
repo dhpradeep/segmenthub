@@ -108,7 +108,7 @@ const App = () => {
         </div>
         <div className="row">
           <div className="col">
-            <h3 className="text-warning">Intructions</h3>
+            <h3 className="text-warning">Instructions</h3>
             <ol>
               <li>Create a new repository on github.</li>
               <li>
