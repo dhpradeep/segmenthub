@@ -12,6 +12,7 @@ const App = () => {
   const [user, setUser] = useState("");
   const [commits, setCommits] = useState(1);
   const [animation, setAnimation] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     setTimeout(() => {
@@ -27,15 +28,30 @@ const App = () => {
     isEmpty(user) ||
     isEmpty(commits);
 
-  const downloadFile = () => {
+  const delay = (time) => {
+    return new Promise(function (resolve) {
+      setTimeout(resolve, time);
+    });
+  };
+  const downloadFile = async () => {
+    setLoading(true);
     if (hasError) {
       alert("Fill the form!!");
       return;
     }
     try {
-      callMethod(user, repo, Number(fromYear), Number(toYear), Number(commits));
+      await delay(3000);
+      await callMethod(
+        user,
+        repo,
+        Number(fromYear),
+        Number(toYear),
+        Number(commits)
+      );
+      setLoading(false);
     } catch (error) {
-      alert("Error occurs!!");
+      alert("Input range and commits are exceed!!");
+      setLoading(false);
     }
   };
 
@@ -180,11 +196,16 @@ const App = () => {
           <div className="form-group col-md-12 text-center">
             <br />
             <button
+              disabled={loading}
               type="button"
               onClick={() => downloadFile()}
               className="btn btn-primary"
             >
-              Generate Commits
+              {loading ? (
+                <i className="fa fa-spinner fa-spin" />
+              ) : (
+                <span>Generate Commits</span>
+              )}
             </button>
           </div>
         </div>
