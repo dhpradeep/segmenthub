@@ -155,7 +155,8 @@ const App = () => {
               id="toYear"
               className="form-control"
               type="number"
-              placeholder="2025"
+              placeholder="2099"
+              max="2099"
             />
           </div>
           <div className="form-group col-md-6">
@@ -184,7 +185,7 @@ const App = () => {
           </div>
           <div className="form-group col-md-6">
             <br />
-            <label htmlFor="commits">No. Of Commits/year</label>
+            <label htmlFor="commits">No. Of Commits/day</label>
             <input
               onChange={(e) => setCommits(e.target.value)}
               value={commits}
