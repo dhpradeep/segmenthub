@@ -13,6 +13,7 @@ const App = () => {
   const [commits, setCommits] = useState(1);
   const [animation, setAnimation] = useState(true);
   const [loading, setLoading] = useState(false);
+  const [newRepo, setNewRepo] = useState(true);
 
   useEffect(() => {
     setTimeout(() => {
@@ -21,12 +22,20 @@ const App = () => {
   });
 
   const isEmpty = (field) => field === "";
-  const hasError =
-    isEmpty(fromYear) ||
-    isEmpty(toYear) ||
-    isEmpty(repo) ||
-    isEmpty(user) ||
-    isEmpty(commits);
+  const hasError = () => {
+    let errors = false;
+    if (newRepo) {
+      errors =
+        isEmpty(fromYear) ||
+        isEmpty(toYear) ||
+        isEmpty(commits) ||
+        isEmpty(repo) ||
+        isEmpty(user);
+    } else {
+      errors = isEmpty(fromYear) || isEmpty(toYear) || isEmpty(commits);
+    }
+    return errors;
+  };
 
   const delay = (time) => {
     return new Promise(function (resolve) {
@@ -35,7 +44,7 @@ const App = () => {
   };
   const downloadFile = async () => {
     setLoading(true);
-    if (hasError) {
+    if (hasError()) {
       alert("Fill the form!!");
       setLoading(false);
       return;
@@ -47,7 +56,8 @@ const App = () => {
         repo,
         Number(fromYear),
         Number(toYear),
-        Number(commits)
+        Number(commits),
+        newRepo
       );
       setLoading(false);
     } catch (error) {
@@ -159,30 +169,50 @@ const App = () => {
               max="2099"
             />
           </div>
-          <div className="form-group col-md-6">
+          <div className="form-group col-md-12">
             <br />
-            <label htmlFor="repo">Your Github Repository</label>
-            <input
-              onChange={(e) => setRepo(e.target.value)}
-              value={repo}
-              id="repo"
-              className="form-control"
-              type="text"
-              placeholder="repository"
-            />
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                value=""
+                id="flexCheckChecked"
+                onChange={(e) => setNewRepo(e.target.checked)}
+                checked={newRepo}
+              />
+              <label class="form-check-label" for="flexCheckChecked">
+                New Repo ?
+              </label>
+            </div>
           </div>
-          <div className="form-group col-md-6">
-            <br />
-            <label htmlFor="username">Your Github Username</label>
-            <input
-              onChange={(e) => setUser(e.target.value)}
-              value={user}
-              id="username"
-              className="form-control"
-              type="text"
-              placeholder="username"
-            />
-          </div>
+          {newRepo ? (
+            <>
+              <div className="form-group col-md-6">
+                <br />
+                <label htmlFor="repo">Your Github Repository</label>
+                <input
+                  onChange={(e) => setRepo(e.target.value)}
+                  value={repo}
+                  id="repo"
+                  className="form-control"
+                  type="text"
+                  placeholder="repository"
+                />
+              </div>
+              <div className="form-group col-md-6">
+                <br />
+                <label htmlFor="username">Your Github Username</label>
+                <input
+                  onChange={(e) => setUser(e.target.value)}
+                  value={user}
+                  id="username"
+                  className="form-control"
+                  type="text"
+                  placeholder="username"
+                />
+              </div>
+            </>
+          ) : null}
           <div className="form-group col-md-6">
             <br />
             <label htmlFor="commits">No. Of Commits/day</label>

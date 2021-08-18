@@ -1,4 +1,4 @@
-function generateFile(user, repo, commitArray) {
+function generateFile(user, repo, commitArray, newRepo) {
   return new Promise(async (resolve, reject) => {
     try {
       var element = document.createElement("a");
@@ -10,7 +10,7 @@ function generateFile(user, repo, commitArray) {
       element.setAttribute(
         "href",
         "data:text/plain;charset=utf-8," +
-          encodeURIComponent(fileTemplate(user, repo, commits))
+          encodeURIComponent(fileTemplate(user, repo, commits, newRepo))
       );
       element.setAttribute("download", "github.sh");
       element.style.display = "none";
@@ -24,15 +24,19 @@ function generateFile(user, repo, commitArray) {
   });
 }
 
-const fileTemplate = (user, repo, commits) => {
+const fileTemplate = (user, repo, commits, newRepo) => {
   let content = "#!/bin/bash\n";
-  content += `git init ${repo}\n`;
-  content += `cd ${repo}\n`;
-  content += "touch README.md\n";
-  content += "git add README.md\n";
+  if (newRepo) {
+    content += `git init ${repo}\n`;
+    content += `cd ${repo}\n`;
+    content += "touch README.md\n";
+    content += "git add README.md\n";
+  }
   content += commits;
-  content += `git remote add origin git@github.com:${user}/${repo}.git\n`;
-  content += "git branch -M main\n";
+  if (newRepo) {
+    content += `git remote add origin git@github.com:${user}/${repo}.git\n`;
+    content += "git branch -M main\n";
+  }
   content += "git push -u origin main";
   return content;
 };

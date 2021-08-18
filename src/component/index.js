@@ -89,7 +89,14 @@ const getSegmentStartWeek = (dateString, segmentIndex) => {
   return dates;
 };
 
-export const callMethod = async (user, repo, fromYear, toYear, commits) => {
+export const callMethod = async (
+  user,
+  repo,
+  fromYear,
+  toYear,
+  commits,
+  newRepo
+) => {
   const commit = makeCommit(getByAllYears(fromYear, toYear), commits);
-  await generateFile(user, repo, [...new Set(commit)]);
+  await generateFile(user, repo, [...new Set(commit)], newRepo);
 };
