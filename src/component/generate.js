@@ -29,7 +29,8 @@ const fileTemplate = (user, repo, commits, newRepo) => {
   if (newRepo) {
     content += `git init ${repo}\n`;
     content += `cd ${repo}\n`;
-    content += "touch README.md\n";
+    content +=
+      "echo '# Automatically generated repo using [segmenthub](https://github.com/dhpradeep/segmenthub)' > README.md\n";
     content += "git add README.md\n";
   }
   content += commits;

@@ -98,5 +98,5 @@ export const callMethod = async (
   newRepo
 ) => {
   const commit = makeCommit(getByAllYears(fromYear, toYear), commits);
-  await generateFile(user, repo, [...new Set(commit)], newRepo);
+  await generateFile(user, repo, commit, newRepo);
 };
