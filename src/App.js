@@ -171,16 +171,16 @@ const App = () => {
           </div>
           <div className="form-group col-md-12">
             <br />
-            <div class="form-check">
+            <div className="form-check">
               <input
-                class="form-check-input"
+                className="form-check-input"
                 type="checkbox"
                 value=""
                 id="flexCheckChecked"
                 onChange={(e) => setNewRepo(e.target.checked)}
                 checked={newRepo}
               />
-              <label class="form-check-label" for="flexCheckChecked">
+              <label className="form-check-label" htmlFor="flexCheckChecked">
                 New Repo ?
               </label>
             </div>
