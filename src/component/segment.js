@@ -69,8 +69,8 @@ const g = (data) => {
   ];
 };
 
-const zero = (data) => {
-  return [
+const zero = (data) => [
+  ...new Set([
     ...a(data),
     ...b(data),
     moment(data[45], "YYYY-MM-DD").format(format),
@@ -79,69 +79,73 @@ const zero = (data) => {
     ...e(data),
     moment(data[3], "YYYY-MM-DD").format(format),
     ...f(data),
-  ];
-};
-const one = (data) => {
-  const response = [
+  ]),
+];
+
+const one = (data) => [
+  ...new Set([
     ...b(data),
     moment(data[45], "YYYY-MM-DD").format(format),
     ...c(data),
-  ];
-  return response;
-};
+  ]),
+];
+
 const two = (data) => [
-  ...a(data),
-  ...b(data),
-  ...d(data),
-  ...e(data),
-  ...g(data),
+  ...new Set([...a(data), ...b(data), ...d(data), ...e(data), ...g(data)]),
 ];
+
 const three = (data) => [
-  ...a(data),
-  ...b(data),
-  ...c(data),
-  ...d(data),
-  ...g(data),
+  ...new Set([...a(data), ...b(data), ...c(data), ...d(data), ...g(data)]),
 ];
-const four = (data) => [...b(data), ...c(data), ...f(data), ...g(data)];
+
+const four = (data) => [
+  ...new Set([...b(data), ...c(data), ...f(data), ...g(data)]),
+];
 const five = (data) => [
-  ...a(data),
-  ...c(data),
-  ...d(data),
-  ...f(data),
-  ...g(data),
+  ...new Set([...a(data), ...c(data), ...d(data), ...f(data), ...g(data)]),
 ];
 const six = (data) => [
-  ...a(data),
-  ...c(data),
-  ...d(data),
-  ...e(data),
-  ...f(data),
-  ...g(data),
+  ...new Set([
+    ...a(data),
+    ...c(data),
+    ...d(data),
+    ...e(data),
+    ...f(data),
+    ...g(data),
+  ]),
 ];
+
 const seven = (data) => [
-  ...a(data),
-  ...b(data),
-  moment(data[45], "YYYY-MM-DD").format(format),
-  ...c(data),
+  ...new Set([
+    ...a(data),
+    ...b(data),
+    moment(data[45], "YYYY-MM-DD").format(format),
+    ...c(data),
+  ]),
 ];
+
 const eight = (data) => [
-  ...a(data),
-  ...b(data),
-  moment(data[45], "YYYY-MM-DD").format(format),
-  ...c(data),
-  ...d(data),
-  ...e(data),
-  ...f(data),
-  ...g(data),
+  ...new Set([
+    ...a(data),
+    ...b(data),
+    moment(data[45], "YYYY-MM-DD").format(format),
+    ...c(data),
+    ...d(data),
+    ...e(data),
+    ...f(data),
+    ...g(data),
+  ]),
 ];
+
 const nine = (data) => [
-  ...a(data),
-  ...b(data),
-  ...c(data),
-  ...d(data),
-  ...f(data),
-  ...g(data),
+  ...new Set([
+    ...a(data),
+    ...b(data),
+    ...c(data),
+    ...d(data),
+    ...f(data),
+    ...g(data),
+  ]),
 ];
 
 export { zero, one, two, three, four, five, six, seven, eight, nine };
